@@ -49,7 +49,7 @@ const dbConnection = async() => {
 
         await bd.authenticate();
         console.log('You are succesfully connected to the database')
-        // await bd.sync({alter: true})
+        await bd.sync({alter: true})
 
     } catch (error) {
 
