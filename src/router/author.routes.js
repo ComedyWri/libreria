@@ -4,7 +4,7 @@ import { authMid } from '../middlewares/auth.middleware.js'
 
 const router = Router()
 
-router.post('/author', authMid, async (req, res) => {
+router.post('/author', async (req, res) => {
     const {name} = req.body
     try {
         const newAuthor = await author.create({
@@ -16,7 +16,7 @@ router.post('/author', authMid, async (req, res) => {
     }   
 })
 
-router.get('/author', authMid, async (req, res) => {
+router.get('/author', async (req, res) => {
     try {
         const getAuthors = await author.findAll()   
         res.send(getAuthors)
