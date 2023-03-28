@@ -33,7 +33,7 @@ const app = express()
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded( {extended: true} ));
 app.use(cookieParser())
-app.use(cors({origin:"*/", credentials: true}));
+app.use(cors({origin:"*", credentials: true}));
 
 
 //inicializando rutas
