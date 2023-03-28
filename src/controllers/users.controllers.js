@@ -43,7 +43,7 @@ const loginUser = async(req, res) => {
     //confirmando credenciales
     if (passDecrypt == true && accesUser[0].dataValues.user_email == email){
         const uCookie = uuidv4()
-        res.cookie('session_token', uCookie, {sameSite: 'none', httpOnly: true, secure: true})
+        res.cookie('session_token', uCookie, {sameSite: None, httpOnly: true, secure: true})
         res.status(200).json('Correcto')
     }else{
         res.status[422].json('The credentials are wrong')
