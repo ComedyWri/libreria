@@ -14,7 +14,7 @@ export const desc = db.define('book_desc', {
         allowNull: false
     },
     book_desc:{
-        type:DataTypes.STRING,
+        type:DataTypes.STRING(2000),
         allowNull: false
     }
 }, {timestamps: false, freezeTableName: true})
