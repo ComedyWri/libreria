@@ -9,7 +9,6 @@ import bd from './database/connection.js'
 
 //importando las rutas
 import userRouters from './router/users.router.js'
-import homeRoutes from './router/home.routes.js';
 import bookRoutes from './router/books.routes.js';
 import authorRoutes from './router/author.routes.js'
 
