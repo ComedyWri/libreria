@@ -48,7 +48,7 @@ const loginUser = async(req, res) => {
     let passDecrypt = await bcrypt.compare(password, accesUser[0].dataValues.user_password)
 
     //confirmando credenciales
-    if (passDecrypt == true && accesUser[0].dataValues.user_email == email){
+    if (passDecrypt == true && accesUser[0].dataValues?.user_email == email){
         const uCookie = uuidv4()
         res.cookie('session_token', uCookie) //no reconoce req.cookie
         res.status(200).json('Correcto')
