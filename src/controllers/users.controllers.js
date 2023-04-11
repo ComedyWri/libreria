@@ -12,22 +12,24 @@ const registerUser = async(req, res) => {
         else if (usuario.length > 20){
             res.status(400).send('The username is too long')
         }
-        const getEmail = await users.findAll({
-            where:{
-                user_email: email
-            }
-        })
-        if (!getEmail[0] == ''){
-            res.status(401).send('The email already exists')
-        } 
         else{
-            let passwordHash = await bcrypt.hash(password, 10, )
-            await users.create({
-            user_name: usuario,
-            user_email: email,
-            user_password: passwordHash,
-        })
-    res.status(201).json('Usuario creado')
+            const getEmail = await users.findAll({
+                where:{
+                    user_email: email
+                }
+            })
+            if (!getEmail[0] == ''){
+                res.status(401).send('The email already exists')
+            } 
+            else{
+                let passwordHash = await bcrypt.hash(password, 10, )
+                await users.create({
+                user_name: usuario,
+                user_email: email,
+                user_password: passwordHash,
+            })
+            res.status(201).json('Usuario creado')
+        }        
     }} catch (error) {
         console.error(error)
     }
