@@ -4,13 +4,12 @@ const authMid = (req, res, next) => {
             next()
         }
         else{
-            res.status(401)
+            res.status(401).send('Not authenticated')
         }
     }
     catch(error){
         console.log(error)
     }
-
 }
 
 export{
