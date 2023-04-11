@@ -19,6 +19,7 @@ import './models/books.js';
 import './models/desc.js'
 import './models/users.js'
 import './models/author.js'
+import './models/type.js'
 import './database/associatons.js'
 import cookieParser from 'cookie-parser';
 
@@ -38,7 +39,6 @@ app.use(cors({origin:"https://librariacrud.vercel.app", credentials: true}));
 
 //inicializando rutas
 app.use(userRouters)
-app.use(homeRoutes)
 app.use(bookRoutes)
 app.use(authorRoutes)
 

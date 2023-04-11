@@ -6,18 +6,23 @@ import {v4 as uuidv4} from 'uuid'
 const registerUser = async(req, res) => {
     try{
         const {usuario, email, password} = req.body
-
+        if (usuario.length < 6){
+            res.status(400).send('The username is too short')
+        }
+        else if (usuario.length > 20){
+            res.status(400).send('The username is too long')
+        }
         const getEmail = await users.findAll({
             where:{
                 user_email: email
             }
         })
         if (!getEmail[0] == ''){
-            console.log('This email already exists')
+            res.status(401).send('The email already exists')
         } 
         else{
             let passwordHash = await bcrypt.hash(password, 10, )
-            const newUser = await users.create({
+            await users.create({
             user_name: usuario,
             user_email: email,
             user_password: passwordHash,
@@ -43,10 +48,10 @@ const loginUser = async(req, res) => {
     //confirmando credenciales
     if (passDecrypt == true && accesUser[0].dataValues.user_email == email){
         const uCookie = uuidv4()
-        res.cookie('session_token', uCookie, {domain: 'libreria-production.up.railway.app', path: '/', sameSite: 'none', secure: true})
+        res.cookie('session_token', uCookie) //no reconoce req.cookie
         res.status(200).json('Correcto')
     }else{
-        res.status[422].json('The credentials are wrong')
+        res.status(422).json('The credentials are wrong')
     }
     } catch (error) {
         console.error(error)
