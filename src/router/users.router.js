@@ -6,7 +6,7 @@ router.post('/register', registerUser)
 
 router.post('/login', loginUser)
 
-router.get('/logout', (req, res) => {
+router.post('/logout', (req, res) => {
     res.clearCookie('session_token')
     res.sendStatus(205)
 })
