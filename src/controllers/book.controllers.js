@@ -56,7 +56,6 @@ const create = async (req, res) => {
 const getBooks = async (req, res) => {
     const {limit, offset} = req.params
     const getBooks = await Book.findAll({
-        limit: 10,
         offset: 0,
         include: [bookFile, desc, author]
     })
