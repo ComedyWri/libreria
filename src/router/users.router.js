@@ -7,9 +7,7 @@ router.post('/register', registerUser)
 router.post('/login', loginUser)
 
 router.get('/logout', (req, res) => {
-    res.clearCookie('session_token', {
-    {domain: 'libreria-production.up.railway.app', path: '/', sameSite: 'none', secure: true}
-    })
+    res.clearCookie('session_token')
     res.sendStatus(205)
 })
 
