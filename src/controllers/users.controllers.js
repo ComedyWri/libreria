@@ -56,7 +56,7 @@ const loginUser = async(req, res) => {
                 httpOnly: true,
                 sameSite: 'None',
                 secure: true,
-                domain: '.onrender.com'
+                domain: '.app'
             })
             res.status(200).json('Correcto')
         }else{
