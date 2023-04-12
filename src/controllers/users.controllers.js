@@ -55,7 +55,8 @@ const loginUser = async(req, res) => {
                 maxAge: 3600000,
                 httpOnly: true,
                 sameSite: 'None',
-                secure: true
+                secure: true,
+                domain: '.onrender.com'
             })
             res.status(200).json('Correcto')
         }else{
