@@ -44,16 +44,18 @@ const loginUser = async(req, res) => {
         }
     })
     
-    //desencriptando password
-    let passDecrypt = await bcrypt.compare(password, accesUser[0].dataValues.user_password)
-
-    //confirmando credenciales
-    if (passDecrypt == true && accesUser[0].dataValues?.user_email == email){
-        const uCookie = uuidv4()
-        res.cookie('session_token', uCookie, {domain: 'libreria-production.up.railway.app', path: '/', sameSite: 'none', secure: true}) //no reconoce req.cookie
-        res.status(200).json('Correcto')
-    }else{
-        res.status(422).json('The credentials are wrong')
+    if (!accesUser[0]) {
+        res.status(401).send('The email does not exists')
+    }
+    else{
+        let passDecrypt = await bcrypt.compare(password, accesUser[0].dataValues.user_password)
+        if (passDecrypt == true && accesUser[0].dataValues.user_email == email){
+            const uCookie = uuidv4()
+            res.cookie('session_token', uCookie)
+            res.status(200).json('Correcto')
+        }else{
+            res.status(422).json('The credentials are wrong')
+        }
     }
     } catch (error) {
         console.error(error)
