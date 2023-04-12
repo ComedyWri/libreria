@@ -54,7 +54,7 @@ const loginUser = async(req, res) => {
             res.cookie('session_token', uCookie, {
             maxAge: 3600000,
             httpOnly: true,
-            sameSite: 'lax',
+            sameSite: 'none',
             secure: true,
             })
             res.status(200).json('Correcto')
