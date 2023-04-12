@@ -52,6 +52,8 @@ const loginUser = async(req, res) => {
         if (passDecrypt == true && accesUser[0].dataValues.user_email == email){
             const uCookie = uuidv4()
             res.cookie('session_token', uCookie, {
+                maxAge: 3600000,
+                httpOnly: true,
                 sameSite: 'None',
                 secure: true
             })
