@@ -54,9 +54,8 @@ const loginUser = async(req, res) => {
             res.cookie('session_token', uCookie, {
             maxAge: 3600000,
             httpOnly: true,
-            sameSite: 'None',
+            sameSite: 'lax',
             secure: true,
-            domain: 'onrender.com'
             })
             res.status(200).json('Correcto')
         }else{
