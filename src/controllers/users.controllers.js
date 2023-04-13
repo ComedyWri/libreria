@@ -12,6 +12,9 @@ const registerUser = async(req, res) => {
         else if (usuario.length > 20){
             res.status(400).send('The username is too long')
         }
+        else if (password.length < 7) {
+            res.status(400).send('The password is too short')
+        }
         else{
             const getEmail = await users.findAll({
                 where:{
