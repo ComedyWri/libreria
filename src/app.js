@@ -7,6 +7,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import bd from './database/connection.js'
 
+
 //importando las rutas
 import userRouters from './router/users.router.js'
 import bookRoutes from './router/books.routes.js';
@@ -21,10 +22,6 @@ import './models/author.js'
 import './models/type.js'
 import './database/associatons.js'
 import cookieParser from 'cookie-parser';
-
-
-
-
 dotenv.config()
 
 
@@ -36,14 +33,12 @@ app.use(cookieParser())
 app.use(cors({origin:"https://librariacrud.onrender.com", credentials: true, exposedHeaders: ["set-cookie"]}));
 
 
-
 //inicializando rutas
 app.use(userRouters)
 app.use(bookRoutes)
 app.use(authorRoutes)
 
 //inicializando la conexion de la base de datos.
-
 const dbConnection = async() => {
     try {
 
@@ -61,7 +56,6 @@ const dbConnection = async() => {
 dbConnection()
 
 //inicializando el servidor en el puerto designado.
-
 app.listen(process.env.PORT, () => {
     console.log(`The app is running on ${process.env.PORT}`)
 })

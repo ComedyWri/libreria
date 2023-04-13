@@ -48,23 +48,24 @@ const create = async (req, res) => {
         })
         res.status(201).json('The book has been created')
     }catch(error){
-        res.sendStatus(401)
+        res.sendStatus(500)
         console.log(error)
     }
 }
 
 const getBooks = async (req, res) => {
-    const {limit, offset} = req.params
-    const getBooks = await Book.findAll({
-        offset: 0,
-        include: [bookFile, desc, author]
-    })
-    res.send(getBooks)
+    try {
+        const getBooks = await Book.findAll({
+            offset: 0,
+            include: [bookFile, desc, author]
+        })
+        res.status(200).send(getBooks)
+    } catch (error) {
+        res.sendStatus(500)
+    }
 }
 
-
 const getBook = async (req, res) => {
-    
     try {
         const getBook = await Book.findAll({
             where:{
@@ -72,9 +73,9 @@ const getBook = async (req, res) => {
             },
             include: [bookFile, desc, author]
         })
-        res.status(202).json(getBook)
-    } catch (e) {
-        console.error(e)
+        res.status(200).json(getBook)
+    } catch (error) {
+        res.sendStatus(500)
     }
 }
 
