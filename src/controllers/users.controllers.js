@@ -62,7 +62,7 @@ const loginUser = async(req, res) => {
             })
             res.status(200).json('Correcto')
         }else{
-            res.status(422).json('The credentials are wrong ')
+            res.status(422).json('The credentials are wrong')
         }
     }
     } catch (error) {
