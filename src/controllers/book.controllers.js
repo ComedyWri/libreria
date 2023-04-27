@@ -103,6 +103,7 @@ const update = async(req, res) => {
             book_name: book,
             book_price: price,
             book_date: date,
+            author_book: author
         },
         {
             where: {

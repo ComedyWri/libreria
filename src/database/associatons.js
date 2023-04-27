@@ -25,7 +25,8 @@ bookFile.belongsTo(Book)
 
 author.hasMany(Book,{
     foreignKey: 'author_book',
-    sourceKey: 'author_id'
+    sourceKey: 'author_id',
+    onDelete: 'CASCADE'
 })
 
 Book.belongsTo(author, {

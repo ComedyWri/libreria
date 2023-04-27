@@ -30,7 +30,7 @@ const app = express()
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded( {extended: true} ));
 app.use(cookieParser())
-app.use(cors({origin:"https://librariacrud.onrender.com", credentials: true, exposedHeaders: ["set-cookie"]}));
+app.use(cors({origin:"http://localhost:5173", credentials: true, exposedHeaders: ["set-cookie"]}));
 
 
 //inicializando rutas
