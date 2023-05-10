@@ -22,6 +22,7 @@ import './models/author.js'
 import './models/type.js'
 import './database/associatons.js'
 import cookieParser from 'cookie-parser';
+import { addData } from './models/type.js';
 dotenv.config()
 
 
@@ -30,7 +31,7 @@ const app = express()
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded( {extended: true} ));
 app.use(cookieParser())
-app.use(cors({origin:"http://localhost:5173", credentials: true, exposedHeaders: ["set-cookie"]}));
+app.use(cors({origin:process.env.CLIENT_URL, credentials: true, exposedHeaders: ["set-cookie"]}));
 
 
 //inicializando rutas
@@ -45,6 +46,7 @@ const dbConnection = async() => {
         await bd.authenticate();
         console.log('You are succesfully connected to the database')
         await bd.sync({alter: true})
+        await addData()
 
     } catch (error) {
 
