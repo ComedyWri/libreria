@@ -28,7 +28,7 @@ const create = async (req, res) => {
     }
 
     const { book, price, date, descrip, author, type } = req.body
-    const { bookImg, ImgPublicId } = image
+    const { bookImg, ImgPublicId } = image ? image : ''
     try{
         const addDesc = await desc.create({
             type,
@@ -42,8 +42,8 @@ const create = async (req, res) => {
             author_book: author
         })
         const bookiFile = await bookFile.create({
-            book_img: bookImg,
-            cloudinary_id: ImgPublicId,
+            book_img: bookImg ? bookImg : "https://avatarfiles.alphacoders.com/339/339989.png",
+            cloudinary_id: ImgPublicId ? ImgPublicId : null,
             bookIdBook: newBook.dataValues.id_book
         })
         res.status(201).json('The book has been created')
@@ -91,13 +91,14 @@ const update = async(req, res) => {
     }
 
     const { book, price, date, descrip, author, type } = req.body
-    const { bookImg, ImgPublicId } = image
+    const { bookImg, ImgPublicId } = image ? image : ''
     try {
 
         const OneBook = await Book.findOne({
             where: {
                 id_book: req.params.id
-            }
+            },
+            include: [bookFile]
         })
         const updatingBook = await Book.update({
             book_name: book,
@@ -119,15 +120,28 @@ const update = async(req, res) => {
                 id_desc: OneBook.dataValues.description
             }
         })
-        const updatingImage = await bookFile.update({
-            book_img: bookImg,
-            cloudinary_id: ImgPublicId
-        },
-        {
-            where: {
-                bookidBook: req.params.id
-            }
-        })
+        if (OneBook.dataValues.book_file.cloudinary_id != null){
+            await bookFile.update({
+                book_img: bookImg ? bookImg : OneBook.dataValues.book_file.book_img,
+                cloudinary_id: ImgPublicId ? ImgPublicId : OneBook.dataValues.book_file.cloudinary_id
+            },
+            {
+                where: {
+                    bookidBook: req.params.id
+                }
+            })
+        }
+        else {
+            await bookFile.update({
+                book_img: bookImg ? bookImg : "https://avatarfiles.alphacoders.com/339/339989.png",
+                cloudinary_id: ImgPublicId ? ImgPublicId : null
+            },
+            {
+                where: {
+                    bookidBook: req.params.id
+                }
+            })
+        } 
         res.status(201).json('The book is updated')
     } catch (error) {
         console.error(error)
@@ -142,13 +156,19 @@ const destroy = async(req, res) => {
                 },
                 include: [bookFile, desc, author]
             })
-            const {cloudinary_id} = getBook[0].dataValues.book_file
-            deleteImage(cloudinary_id)
-            Book.destroy({
-                where: {
-                    id_book: req.params.id
+            try{
+                const {cloudinary_id} = getBook[0].dataValues.book_file
+                if(cloudinary_id){
+                    deleteImage(cloudinary_id)
                 }
-            })
+                Book.destroy({
+                    where: {
+                        id_book: req.params.id
+                    }
+                })
+            } catch (error) {
+                console.error(error)
+            }
             res.sendStatus(202)
         } catch (e) {
             console.error(e)

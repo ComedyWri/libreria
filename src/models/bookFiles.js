@@ -11,13 +11,12 @@ export const bookFile = db.define('book_files', {
     },
     book_img:{
         type: DataTypes.STRING,
-        allowNull: false
     },
     book_file:{
         type: DataTypes.STRING,
     },
     cloudinary_id: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     }
 }, {timestamps: false, freezeTableName: true})
