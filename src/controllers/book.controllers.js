@@ -127,7 +127,7 @@ const update = async(req, res) => {
             },
             {
                 where: {
-                    bookidBook: req.params.id
+                    bookIdBook: req.params.id
                 }
             })
         }
@@ -138,7 +138,7 @@ const update = async(req, res) => {
             },
             {
                 where: {
-                    bookidBook: req.params.id
+                    bookIdBook: req.params.id
                 }
             })
         } 
